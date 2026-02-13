@@ -1,6 +1,10 @@
-@MyRecipeBook.API_HostAddress = http://localhost:5170
+@MyRecipeBookAPI_HostAddress = https://localhost:7000
 
-GET {{MyRecipeBook.API_HostAddress}}/weatherforecast/
+POST {{MyRecipeBookAPI_HostAddress}}/User/
+Content-Type: application/json
 Accept: application/json
+Accept-Language: pt-BR
+
+{}
 
 ###
