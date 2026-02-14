@@ -2,7 +2,7 @@
 
 namespace MyRecipeBook.Domain.Entities;
 
-[Table("users")]
+[Table("Users")]
 public class User : EntiyBase
 {
     public string Name { get; set; } = string.Empty;
