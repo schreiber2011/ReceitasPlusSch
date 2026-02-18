@@ -1,12 +1,6 @@
 ﻿namespace MyRecipeBook.Exceptions.ExceptionsBase;
 
-public class ErrorOnValidationException : MyRecipeBookException
+public class ErrorOnValidationException(IList<string> errors) : MyRecipeBookException
 {
-    public IList<string> ErrorMessages { get; set; }
-
-   public ErrorOnValidationException(IList<string> errors)
-    {
-        ErrorMessages = errors;
-    }
-
+    public IList<string> ErrorMessages { get; set; } = errors;
 }

@@ -45,6 +45,8 @@ app.Run();
 
 void MigrateDatabase()
 {
+    if (app.Environment.IsEnvironment("Test"))
+        return;
     var databaseType = builder.Configuration.DatabaseType();
     var connectionString = builder.Configuration.ConnectionString();
 
