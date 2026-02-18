@@ -15,6 +15,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="[7.2.1,8.0.0)" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="[8.0.24,9.0.0)" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="[8.0.24,9.0.0)" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageReference Include="xunit" Version="[2.9.2]" />
     <PackageReference Include="xunit.runner.visualstudio" Version="[3.1.5]">
@@ -24,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Backend\MyRecipeBook.Application\MyRecipeBook.Application.csproj" />
+    <ProjectReference Include="..\..\src\Backend\MyRecipeBook.API\MyRecipeBook.API.csproj" />
     <ProjectReference Include="..\CommonTestUtilities\CommonTestUtilities.csproj" />
   </ItemGroup>
 
