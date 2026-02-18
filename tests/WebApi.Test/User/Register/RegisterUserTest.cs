@@ -40,11 +40,7 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Name = string.Empty; // Make invalid
 
-        const string Language = "Accept-Language";
-        if (_httpClient.DefaultRequestHeaders.Contains(Language) ) {
-            _httpClient.DefaultRequestHeaders.Remove(Language);
-        }
-        _httpClient.DefaultRequestHeaders.Add(Language, culture);
+        SetCulture(_httpClient, culture);
 
         var response = await _httpClient.PostAsJsonAsync("User", request);
 
@@ -56,17 +52,27 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
 
         var errors = responseData.RootElement.GetProperty("errors").EnumerateArray();
 
-        var expectedMessageBody = ResourceMessagesException.ResourceManager.GetString(
-            "EMPTY", new CultureInfo(culture));
-        var expectedVariable = ResourceMessagesException.ResourceManager.GetString(
-            "NAME", new CultureInfo(culture));
-        var expectedMessage = string.Format(expectedMessageBody!, expectedVariable);
+        var expectedMessage = GetFormattedMessage("EMPTY", "NAME", culture);
 
         errors.Should().NotBeEmpty();
         errors.Should().ContainSingle()
             .And
             .Contain(e => e.GetString()!.Equals(expectedMessage));
 
+    }
+
+    private static void SetCulture(HttpClient client, string culture)
+    {
+        client.DefaultRequestHeaders.Remove("Accept-Language");
+        client.DefaultRequestHeaders.Add("Accept-Language", culture);
+    }
+
+    private static string GetFormattedMessage(string template, string variable, string culture)
+    {
+        var cultureInfo = new CultureInfo(culture);
+        var templateMessage = ResourceMessagesException.ResourceManager.GetString(template, cultureInfo)!;
+        var variableMessage = ResourceMessagesException.ResourceManager.GetString(variable, cultureInfo)!;
+        return string.Format(templateMessage, variableMessage);
     }
 
 }
