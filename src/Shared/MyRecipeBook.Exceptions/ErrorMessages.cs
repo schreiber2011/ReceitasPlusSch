@@ -3,13 +3,13 @@
 public class ErrorMessages
 {
     // Templates
-    private static string EMPTY => ResourceMessagesException.EMPTY;
-    private static string INVALID => ResourceMessagesException.INVALID;
-    private static string NAME => ResourceMessagesException.NAME;
-    private static string EMAIL => ResourceMessagesException.EMAIL;
-    private static string PASSWORD => ResourceMessagesException.PASSWORD;
+    private static string EMPTY => ResourceMessagesException.ResourceManager.GetString("EMPTY")!;
+    private static string INVALID => ResourceMessagesException.ResourceManager.GetString("INVALID")!;
+    private static string NAME => ResourceMessagesException.ResourceManager.GetString("NAME")!;
+    private static string EMAIL => ResourceMessagesException.ResourceManager.GetString("EMAIL")!;
+    private static string PASSWORD => ResourceMessagesException.ResourceManager.GetString("PASSWORD")!;
 
-    public static string PASSWORD_NOT6CHAR => ResourceMessagesException.PASSWORD_NOT6CHAR;
+    public static string PASSWORD_NOT6CHAR => ResourceMessagesException.ResourceManager.GetString("PASSWORD_NOT6CHAR")!;
 
     public static string PASSWORD_EMPTY => string.Format(EMPTY, PASSWORD);
     public static string NAME_EMPTY => string.Format(EMPTY, NAME);

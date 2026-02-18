@@ -15,6 +15,11 @@ public static class DependencyInjectionExtension
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        AddRepositories(services);
+
+        if(configuration.IsUnitTestEnvironment())
+            return;
+
         var databaseType = configuration.DatabaseType();
 
         if (databaseType == DatabaseType.MySql) {
@@ -22,7 +27,7 @@ public static class DependencyInjectionExtension
                 AddDbContext_MySql(services, configuration);
                 AddFluentMigrator_MySql(services, configuration);
             }
-            
+
         }
         else if (databaseType == DatabaseType.SqlServer) {
             AddDbContext_SqlServer(services, configuration);
@@ -31,7 +36,6 @@ public static class DependencyInjectionExtension
         else {
             throw new NotSupportedException($"Database type '{databaseType}' is not supported.");
         }
-        AddRepositories(services);
     }
 
     private static void AddDbContext_SqlServer(IServiceCollection services, IConfiguration configuration)
