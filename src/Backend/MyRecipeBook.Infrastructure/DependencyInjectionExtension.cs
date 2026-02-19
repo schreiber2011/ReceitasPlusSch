@@ -17,23 +17,29 @@ public static class DependencyInjectionExtension
     {
         AddRepositories(services);
 
-        if(configuration.IsUnitTestEnvironment())
+        if (configuration.IsUnitTestEnvironment())
             return;
 
         var databaseType = configuration.DatabaseType();
 
-        if (databaseType == DatabaseType.MySql) {
-            {
-                AddDbContext_MySql(services, configuration);
-                AddFluentMigrator_MySql(services, configuration);
-            }
+        SetDbContextAndAddFluentMigration(services, configuration, databaseType);
+    }
+
+    private static void SetDbContextAndAddFluentMigration(IServiceCollection services, IConfiguration configuration, DatabaseType databaseType)
+    {
+        if (databaseType == DatabaseType.MySql)
+        {
+            AddDbContext_MySql(services, configuration);
+            AddFluentMigrator_MySql(services, configuration);
 
         }
-        else if (databaseType == DatabaseType.SqlServer) {
+        else if (databaseType == DatabaseType.SqlServer)
+        {
             AddDbContext_SqlServer(services, configuration);
             AddFluentMigrator_SqlServer(services, configuration);
         }
-        else {
+        else
+        {
             throw new NotSupportedException($"Database type '{databaseType}' is not supported.");
         }
     }
@@ -62,7 +68,7 @@ public static class DependencyInjectionExtension
     private static void AddRepositories(IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IUserWriteOlnyRepository, UserRepository>();
+        services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
     }
 

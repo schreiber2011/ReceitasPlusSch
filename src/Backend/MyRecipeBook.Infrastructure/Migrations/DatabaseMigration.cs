@@ -24,7 +24,8 @@ public static class DatabaseMigration
 
         var databaseName = connectionStringBuilder.Database;
 
-        connectionStringBuilder.Remove("Database");
+        const string database = "Database";
+        connectionStringBuilder.Remove(database);
 
         using var connection = new MySqlConnection(connectionStringBuilder.ConnectionString);
 

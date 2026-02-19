@@ -4,7 +4,7 @@ using MyRecipeBook.Domain.Repositories.User;
 
 namespace MyRecipeBook.Infrastructure.DataAccess.Repositories;
 
-public class UserRepository(MyrecipeBookDbContext dbContext) : IUserWriteOlnyRepository, IUserReadOnlyRepository
+public class UserRepository(MyrecipeBookDbContext dbContext) : IUserWriteOnlyRepository, IUserReadOnlyRepository
 {
     public async Task Add(User user) => await dbContext.Users.AddAsync(user);
 

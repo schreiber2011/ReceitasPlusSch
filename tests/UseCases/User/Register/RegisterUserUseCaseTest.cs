@@ -21,7 +21,7 @@ public class RegisterUserUseCaseTest
         readOnlyRepository.ExistActiveUserWithEmail(request.Email); // Simulate existing email
         
         var useCase = new RegisterUserUseCase(
-            UserWriteOlnyRepositoryBuilder.Build(),
+            UserWriteOnlyRepositoryBuilder.Build(),
             readOnlyRepository.Build(),
             UnitOfWorkBuilder.Build(),
             MapperBuilder.Build(),
@@ -48,7 +48,7 @@ public class RegisterUserUseCaseTest
         request.Email = string.Empty; // Set email to empty
 
         var useCase = new RegisterUserUseCase(
-            UserWriteOlnyRepositoryBuilder.Build(),
+            UserWriteOnlyRepositoryBuilder.Build(),
             new UserReadOnlyRepositoryBuilder().Build(),
             UnitOfWorkBuilder.Build(),
             MapperBuilder.Build(),
@@ -73,7 +73,7 @@ public class RegisterUserUseCaseTest
         var request = RequestRegisterUserJsonBuilder.Build();
 
         var useCase = new RegisterUserUseCase(
-            UserWriteOlnyRepositoryBuilder.Build(),
+            UserWriteOnlyRepositoryBuilder.Build(),
             new UserReadOnlyRepositoryBuilder().Build(),
             UnitOfWorkBuilder.Build(),
             MapperBuilder.Build(),

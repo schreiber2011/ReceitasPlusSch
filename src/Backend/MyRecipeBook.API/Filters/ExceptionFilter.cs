@@ -10,28 +10,23 @@ public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if(context.Exception is MyRecipeBookException)
-        {
+        if (context.Exception is MyRecipeBookException)
             HandleProjectException(context);
-        }
         else
-        {
-            ThrowUnknowException(context);
-        }
+            ThrowUnknownException(context);
     }
 
-    public void HandleProjectException(ExceptionContext context)
+    public static void HandleProjectException(ExceptionContext context)
     {
-        if(context.Exception is ErrorOnValidationException)
+        if (context.Exception is ErrorOnValidationException validationException)
         {
-            var validationException = context.Exception as ErrorOnValidationException;
             context.HttpContext.Response.StatusCode = (int) HttpStatusCode.BadRequest;
             context.Result = 
                 new BadRequestObjectResult(new ResponseErrorJson(validationException.ErrorMessages));
         }
     }
 
-    public void ThrowUnknowException(ExceptionContext context)
+    public static void ThrowUnknownException(ExceptionContext context)
     {
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
         context.Result =

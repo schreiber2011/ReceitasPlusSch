@@ -11,15 +11,15 @@ namespace MyRecipeBook.API.Middleware
             var supportedCultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
             var cultureQuery = context.Request.Headers.AcceptLanguage.FirstOrDefault();
 
-            var culture = new CultureInfo("en");
-            if (string.IsNullOrWhiteSpace(cultureQuery) == false
+            var requestedCulture = new CultureInfo("en");
+            if (!string.IsNullOrWhiteSpace(cultureQuery)
                 && supportedCultures.Any(c => c.Name.Equals(cultureQuery, StringComparison.InvariantCultureIgnoreCase)))
             {
-                culture = new CultureInfo(cultureQuery);
+                requestedCulture = new CultureInfo(cultureQuery);
             }
 
-            CultureInfo.CurrentCulture = culture;
-            CultureInfo.CurrentUICulture = culture;
+            CultureInfo.CurrentCulture = requestedCulture;
+            CultureInfo.CurrentUICulture = requestedCulture;
 
             await _culture(context);
         }
