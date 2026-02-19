@@ -2,6 +2,8 @@
 
 public class ErrorMessages
 {
+    private ErrorMessages() { }
+
     // Templates
     private static string EMPTY => ResourceMessagesException.ResourceManager.GetString("EMPTY")!;
     private static string INVALID => ResourceMessagesException.ResourceManager.GetString("INVALID")!;
