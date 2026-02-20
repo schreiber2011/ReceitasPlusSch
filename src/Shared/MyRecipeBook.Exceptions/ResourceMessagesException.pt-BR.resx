@@ -126,6 +126,9 @@
   <data name="INVALID" xml:space="preserve">
     <value>O {0} é inválido.</value>
   </data>
+  <data name="INVALIDS" xml:space="preserve">
+    <value>O {0} e/ou {1} são inválidos.</value>
+  </data>
   <data name="NAME" xml:space="preserve">
     <value>Nome</value>
   </data>

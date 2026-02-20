@@ -1,3 +1,4 @@
+using MyRecipeBook.API.Converters;
 using MyRecipeBook.API.Filters;
 using MyRecipeBook.API.Middleware;
 using MyRecipeBook.Application;
@@ -10,17 +11,35 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+//.AddJsonOptions(
+//    options => options.JsonSerializerOptions.Converters.Add(new StringConverter())
+//);
+// This AddJsonOptions above in comments is necessary so the space removal for name works,
+// but it is breaking the register custom error responses
+//WebApi.Test.User.Register.RegisterUserTest.PostUser_WhenNameIsEmpty_ShouldBeBadRequestWithNameEmptyError(culture: "en")
+
+//  Source: RegisterUserTest.cs line 35
+
+//  Duration: 549 ms
+
+//  Message: 
+//System.InvalidOperationException : The requested operation requires an element of type 'Array', but the target element has type 'Object'.
+// The problem is that the custom exception aren't being used, instead the controller do automatic
+// checks and return the default error response, which is different from the custom one, and the test is expecting the custom one, so it is breaking the test. 
+// The issues happen only with RegisterUse but not with the New DoLogin controller
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMvc(options =>
 {
-    options.Filters.Add<ExceptionFilter>();
+    options.Filters.Add(typeof(ExceptionFilter));
 });
 
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 var app = builder.Build();
 

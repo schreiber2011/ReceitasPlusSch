@@ -126,6 +126,9 @@
   <data name="INVALID" xml:space="preserve">
     <value>{0} is invalid.</value>
   </data>
+  <data name="INVALIDS" xml:space="preserve">
+    <value>{0} or {1} are invalid.</value>
+  </data>
   <data name="NAME" xml:space="preserve">
     <value>Name</value>
   </data>
