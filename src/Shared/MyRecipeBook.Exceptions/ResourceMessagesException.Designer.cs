@@ -88,6 +88,15 @@ namespace MyRecipeBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} or {1} are invalid..
+        /// </summary>
+        public static string INVALIDS {
+            get {
+                return ResourceManager.GetString("INVALIDS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string NAME {

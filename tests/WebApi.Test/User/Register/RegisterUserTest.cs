@@ -9,19 +9,16 @@ using WebApi.Test.InlineData;
 
 namespace WebApi.Test.User.Register;
 
-public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
+public class RegisterUserTest(CustomWebApplicationFactory factory) : MyRecipeBookClassFixture(factory)
 {
-    private readonly HttpClient _httpClient;
-
-    public RegisterUserTest(CustomWebApplicationFactory factory)
-        => _httpClient = factory.CreateClient();
+    private readonly string method = "user";
 
     [Fact]
     public async Task PostUser_Success()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        var response = await _httpClient.PostAsJsonAsync("User", request);
+        var response = await DoPost(method, request);
 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
 
@@ -40,9 +37,7 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Name = string.Empty; // Make invalid
 
-        SetCulture(_httpClient, culture);
-
-        var response = await _httpClient.PostAsJsonAsync("User", request);
+        var response = await DoPost(method, request, culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
@@ -59,12 +54,6 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
             .And
             .Contain(e => e.GetString()!.Equals(expectedMessage));
 
-    }
-
-    private static void SetCulture(HttpClient client, string culture)
-    {
-        client.DefaultRequestHeaders.Remove("Accept-Language");
-        client.DefaultRequestHeaders.Add("Accept-Language", culture);
     }
 
     private static string GetFormattedMessage(string template, string variable, string culture)
