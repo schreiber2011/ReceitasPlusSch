@@ -6,6 +6,7 @@ using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ public class RegisterUserUseCase(
     IUserReadOnlyRepository readOnlyRepository,
     IUnitOfWork unitOfWork,
     IMapper autoMapper,
+    IAccessTokenGenerator accessTokenGenerator,
     PasswordEncripter passwordEncripter
         ) : IRegisterUserUseCase
 {
@@ -25,8 +27,8 @@ public class RegisterUserUseCase(
         await Validate(request);
 
         var user = autoMapper.Map<Domain.Entities.User>(request);
-
         user.Password = passwordEncripter.Encrypt(request.Password);
+        user.UserIdentifier = Guid.NewGuid();
 
         await writeOnlyRepository.Add(user);
 
@@ -35,7 +37,10 @@ public class RegisterUserUseCase(
         return new ResponseRegisteredUserJson
         {
             Name = request.Name,
-
+            Tokens = new ResponseTokensJson
+            {
+                AccessToken = accessTokenGenerator.Generate(user.UserIdentifier)
+            }
         };
     }
 

@@ -2,6 +2,7 @@
 using CommonTestUtilities.Mapper;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
+using CommonTestUtilities.Tokens;
 using FluentAssertions;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Exceptions;
@@ -25,6 +26,7 @@ public class RegisterUserUseCaseTest
             readOnlyRepository.Build(),
             UnitOfWorkBuilder.Build(),
             MapperBuilder.Build(),
+            JwtTokenGeneratorBuilder.Build(),
             PasswordEncripterBuilder.Build());
 
         // Act & Assert
@@ -35,9 +37,6 @@ public class RegisterUserUseCaseTest
             e => e.ErrorMessages.Count == 1
             &&
             e.ErrorMessages.Contains(ErrorMessages.EMAIL_INVALID));
-        //var exception = await Assert.ThrowsAsync<ValidationException>(() => useCase.Execute(request));
-        //exception.Errors.Should().ContainSingle(); // Only one error expected
-        //exception.Should().HaveError(ErrorMessages.EMAIL_ALREADY_EXISTS);
     }
 
     [Fact]
@@ -52,6 +51,7 @@ public class RegisterUserUseCaseTest
             new UserReadOnlyRepositoryBuilder().Build(),
             UnitOfWorkBuilder.Build(),
             MapperBuilder.Build(),
+            JwtTokenGeneratorBuilder.Build(),
             PasswordEncripterBuilder.Build());
 
         // Act & Assert
@@ -62,9 +62,6 @@ public class RegisterUserUseCaseTest
             e => e.ErrorMessages.Count == 1
             &&
             e.ErrorMessages.Contains(ErrorMessages.EMAIL_EMPTY));
-        //var exception = await Assert.ThrowsAsync<ValidationException>(() => useCase.Execute(request));
-        //exception.Errors.Should().ContainSingle(); // Only one error expected
-        //exception.Should().HaveError(ErrorMessages.EMAIL_ALREADY_EXISTS);
     }
 
     [Fact]
@@ -77,6 +74,7 @@ public class RegisterUserUseCaseTest
             new UserReadOnlyRepositoryBuilder().Build(),
             UnitOfWorkBuilder.Build(),
             MapperBuilder.Build(),
+            JwtTokenGeneratorBuilder.Build(),
             PasswordEncripterBuilder.Build());
 
         var result = await useCase.Execute(request);
@@ -84,6 +82,7 @@ public class RegisterUserUseCaseTest
         result.Should().NotBeNull();
         result.Name.Should().NotBeNullOrEmpty();
         result.Name.Should().Be(request.Name);
-        result.Name.Should().Be(request.Name);
+        result.Tokens.Should().NotBeNull();
+        result.Tokens.AccessToken.Should().NotBeNullOrEmpty();
     }
 }
