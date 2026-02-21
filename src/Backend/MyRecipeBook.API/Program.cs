@@ -11,17 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-//.AddJsonOptions(
-//    options => options.JsonSerializerOptions.Converters.Add(new StringConverter())
-//);
+//AddJsonOptions
+//    options JsonSerializerOptions Converters Add new StringConverter
 // This AddJsonOptions above in comments is necessary so the space removal for name works,
 // but it is breaking the register custom error responses
 //WebApi.Test.User.Register.RegisterUserTest.PostUser_WhenNameIsEmpty_ShouldBeBadRequestWithNameEmptyError(culture: "en")
-
 //  Source: RegisterUserTest.cs line 35
-
 //  Duration: 549 ms
-
 //  Message: 
 //System.InvalidOperationException : The requested operation requires an element of type 'Array', but the target element has type 'Object'.
 // The problem is that the custom exception aren't being used, instead the controller do automatic
