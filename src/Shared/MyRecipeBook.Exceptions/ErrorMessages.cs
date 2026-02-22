@@ -13,6 +13,9 @@ public class ErrorMessages
     private static string PASSWORD => ResourceMessagesException.ResourceManager.GetString("PASSWORD")!;
 
     public static string PASSWORD_NOT6CHAR => ResourceMessagesException.ResourceManager.GetString("PASSWORD_NOT6CHAR")!;
+    public static string NO_TOKEN => ResourceMessagesException.ResourceManager.GetString("NO_TOKEN")!;
+    public static string TOKEN_MESSAGE_NOT_IMPLEMENTED => "Token error(details not implemented)";
+
 
     public static string PASSWORD_EMPTY => string.Format(EMPTY, PASSWORD);
     public static string NAME_EMPTY => string.Format(EMPTY, NAME);

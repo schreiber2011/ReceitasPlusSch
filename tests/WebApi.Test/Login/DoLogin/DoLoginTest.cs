@@ -20,7 +20,7 @@ public class DoLoginTest : MyRecipeBookClassFixture
 
     public DoLoginTest(CustomWebApplicationFactory factory) : base(factory)
     {
-        _email = factory.GeEmail();
+        _email = factory.GetEmail();
         _password = factory.GetPassword();
         _name = factory.GetName();
     }
