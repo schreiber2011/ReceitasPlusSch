@@ -5,6 +5,7 @@ using MyRecipeBook.Domain.Security.Tokens;
 
 namespace MyRecipeBook.API.Attributes;
 
+[AttributeUsage(AttributeTargets.All)]
 public class AuthenticatedUserAttribute : TypeFilterAttribute
 {
     public AuthenticatedUserAttribute() : base(typeof(AuthenticatedUserFiltere))

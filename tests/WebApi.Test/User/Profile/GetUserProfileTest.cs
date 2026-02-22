@@ -6,14 +6,15 @@ using System.Text.Json;
 
 namespace WebApi.Test.User.Profile;
 
-public class GetUserProfileTest(CustomWebApplicationFactory factory) : MyRecipeBookClassFixture(factory)
+public class GetUserProfileTest(CustomWebApplicationFactory factory) : MyRecipeBookClassFixture(factory), IClassFixture<CustomWebApplicationFactory>
 {
+    private readonly CustomWebApplicationFactory _factory = factory;
     private readonly string METHOD = "user";
 
     [Fact]
     public async Task GetUserProfile_Success()
     {
-        var token = JwtTokenGeneratorBuilder.Build().Generate(factory.GetUserIdentifier());
+        var token = JwtTokenGeneratorBuilder.Build().Generate(_factory.GetUserIdentifier());
 
         var response = await DoGet(METHOD, token);
 
@@ -23,10 +24,10 @@ public class GetUserProfileTest(CustomWebApplicationFactory factory) : MyRecipeB
 
         responseData.RootElement.GetProperty("name").GetString()
             .Should().NotBeNullOrWhiteSpace()
-            .And.Be(factory.GetName());
+            .And.Be(_factory.GetName());
         responseData.RootElement.GetProperty("email").GetString()
             .Should().NotBeNullOrWhiteSpace()
-            .And.Be(factory.GetEmail());
+            .And.Be(_factory.GetEmail());
     }
 
     [Fact]
