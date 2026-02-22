@@ -12,11 +12,13 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private MyRecipeBook.Domain.Entities.User? _user;
     private string _password = string.Empty;
 
-    public string GeEmail() => _user?.Email ?? throw new InvalidOperationException("User not initialized");
+    public string GetEmail() => _user?.Email ?? throw new InvalidOperationException("User not initialized");
 
     public string GetPassword() => _password ?? throw new InvalidOperationException("Password not initialized");
 
     public string GetName() => _user?.Name ?? throw new InvalidOperationException("User not initialized");
+
+    public Guid GetUserIdentifier() => _user?.UserIdentifier ?? throw new InvalidOperationException("User not initialized");
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {

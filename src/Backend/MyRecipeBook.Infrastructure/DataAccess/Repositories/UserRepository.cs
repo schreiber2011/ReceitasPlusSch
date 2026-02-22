@@ -11,6 +11,9 @@ public class UserRepository(MyrecipeBookDbContext dbContext) : IUserWriteOnlyRep
     public async Task<bool> ExistsActiveUserWithEmail(string email) 
         => await dbContext.Users.AnyAsync(u => u.Email.Equals(email) && u.Active);
 
+    public async Task<bool> ExistsActiveUserWithIdentifier(Guid userIdentifier)
+        => await dbContext.Users.AnyAsync(u => u.UserIdentifier.Equals(userIdentifier) && u.Active);
+
     public async Task<User?> GetByEmailAndPassword(string email, string password)
     {
         return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(

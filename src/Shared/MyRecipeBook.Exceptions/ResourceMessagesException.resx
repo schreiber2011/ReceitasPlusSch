@@ -132,6 +132,9 @@
   <data name="NAME" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="NO_TOKEN" xml:space="preserve">
+    <value>No token</value>
+  </data>
   <data name="PASSWORD" xml:space="preserve">
     <value>Password</value>
   </data>

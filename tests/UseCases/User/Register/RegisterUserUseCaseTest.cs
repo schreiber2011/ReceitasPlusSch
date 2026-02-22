@@ -65,7 +65,7 @@ public class RegisterUserUseCaseTest
     }
 
     [Fact]
-    public async Task Success()
+    public async Task Register_Success()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
