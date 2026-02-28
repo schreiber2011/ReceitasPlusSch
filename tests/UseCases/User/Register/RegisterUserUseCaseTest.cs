@@ -20,14 +20,8 @@ public class RegisterUserUseCaseTest
 
         var readOnlyRepository = new UserReadOnlyRepositoryBuilder();
         readOnlyRepository.ExistActiveUserWithEmail(request.Email); // Simulate existing email
-        
-        var useCase = new RegisterUserUseCase(
-            UserWriteOnlyRepositoryBuilder.Build(),
-            readOnlyRepository.Build(),
-            UnitOfWorkBuilder.Build(),
-            MapperBuilder.Build(),
-            JwtTokenGeneratorBuilder.Build(),
-            PasswordEncripterBuilder.Build());
+
+        RegisterUserUseCase useCase = GetRegisterUserUseCase(readOnlyRepository);
 
         // Act & Assert
         Func<Task> act = async () => await useCase.Execute(request);
@@ -46,13 +40,7 @@ public class RegisterUserUseCaseTest
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Email = string.Empty; // Set email to empty
 
-        var useCase = new RegisterUserUseCase(
-            UserWriteOnlyRepositoryBuilder.Build(),
-            new UserReadOnlyRepositoryBuilder().Build(),
-            UnitOfWorkBuilder.Build(),
-            MapperBuilder.Build(),
-            JwtTokenGeneratorBuilder.Build(),
-            PasswordEncripterBuilder.Build());
+        var useCase = GetRegisterUserUseCase(new UserReadOnlyRepositoryBuilder());
 
         // Act & Assert
         Func<Task> act = async () => await useCase.Execute(request);
@@ -69,13 +57,7 @@ public class RegisterUserUseCaseTest
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        var useCase = new RegisterUserUseCase(
-            UserWriteOnlyRepositoryBuilder.Build(),
-            new UserReadOnlyRepositoryBuilder().Build(),
-            UnitOfWorkBuilder.Build(),
-            MapperBuilder.Build(),
-            JwtTokenGeneratorBuilder.Build(),
-            PasswordEncripterBuilder.Build());
+        var useCase = GetRegisterUserUseCase(new UserReadOnlyRepositoryBuilder());
 
         var result = await useCase.Execute(request);
 
@@ -84,5 +66,16 @@ public class RegisterUserUseCaseTest
         result.Name.Should().Be(request.Name);
         result.Tokens.Should().NotBeNull();
         result.Tokens.AccessToken.Should().NotBeNullOrEmpty();
+    }
+
+    private static RegisterUserUseCase GetRegisterUserUseCase(UserReadOnlyRepositoryBuilder readOnlyRepository)
+    {
+        return new RegisterUserUseCase(
+            UserWriteOnlyRepositoryBuilder.Build(),
+            readOnlyRepository.Build(),
+            UnitOfWorkBuilder.Build(),
+            MapperBuilder.Build(),
+            JwtTokenGeneratorBuilder.Build(),
+            PasswordEncripterBuilder.Build());
     }
 }
