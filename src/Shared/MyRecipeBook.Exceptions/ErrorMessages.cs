@@ -18,6 +18,7 @@ public class ErrorMessages
 
 
     public static string PASSWORD_EMPTY => string.Format(EMPTY, PASSWORD);
+    public static string PASSWORD_INVALID => string.Format(INVALID, PASSWORD);
     public static string NAME_EMPTY => string.Format(EMPTY, NAME);
     public static string EMAIL_EMPTY => string.Format(EMPTY, EMAIL);
     public static string EMAIL_INVALID => string.Format(INVALID, EMAIL);
