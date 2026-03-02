@@ -2,7 +2,6 @@
 using MyRecipeBook.Domain.Security.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 
 namespace MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 

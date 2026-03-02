@@ -13,7 +13,7 @@ public static class DatabaseMigration
 
     public static void Migrate(DatabaseType databaseType, string connectionString, IServiceProvider serviceProvider)
     {
-        if(databaseType == DatabaseType.MySql)
+        if (databaseType == DatabaseType.MySql)
             EnsureMySQLDatabseCreated(connectionString);
         else
             EnsureSQLServerDatabseCreated(connectionString);
@@ -51,7 +51,7 @@ public static class DatabaseMigration
     private static void MigrationDatabase(IServiceProvider serviceProvider)
     {
         var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-        
+
         runner.ListMigrations();
 
         runner.MigrateUp();

@@ -13,10 +13,10 @@ namespace MyRecipeBook.API.Token
                 .Authorization.ToString();
             if (string.IsNullOrWhiteSpace(authentication)
             || !authentication.StartsWith("Bearer "))
-                    {
-                        throw new MyRecipeBookException(ErrorMessages.NO_TOKEN);
-                    }
-                    return authentication.Substring("Bearer ".Length).Trim();
+            {
+                throw new MyRecipeBookException(ErrorMessages.NO_TOKEN);
+            }
+            return authentication.Substring("Bearer ".Length).Trim();
 
         }
     }

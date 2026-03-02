@@ -26,8 +26,8 @@ public class ExceptionFilter : IExceptionFilter
         }
         else if (context.Exception is ErrorOnValidationException validationException)
         {
-            context.HttpContext.Response.StatusCode = (int) HttpStatusCode.BadRequest;
-            context.Result = 
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Result =
                 new BadRequestObjectResult(new ResponseErrorJson(validationException.ErrorMessages));
         }
     }

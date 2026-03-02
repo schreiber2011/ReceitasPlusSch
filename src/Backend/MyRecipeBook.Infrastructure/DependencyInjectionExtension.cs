@@ -5,11 +5,13 @@ using Microsoft.Extensions.DependencyInjection;
 using MyRecipeBook.Domain.Enums;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Domain.Services.LoggedUser;
 using MyRecipeBook.Infrastructure.DataAccess;
 using MyRecipeBook.Infrastructure.DataAccess.Repositories;
 using MyRecipeBook.Infrastructure.Extensions;
+using MyRecipeBook.Infrastructure.Security.Cryptography;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Validator;
 using MyRecipeBook.Infrastructure.Services.LoggedUser;
@@ -20,6 +22,7 @@ public static class DependencyInjectionExtension
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        AddPasswordEncrypter(services, configuration);
         AddRepositories(services);
         AddLoggedUser(services);
         AddTokens(services, configuration);
@@ -88,7 +91,7 @@ public static class DependencyInjectionExtension
                 .WithGlobalConnectionString(configuration.ConnectionString())
                 .ScanIn(typeof(DependencyInjectionExtension).Assembly).For.Migrations());
     }
-     private static void AddFluentMigrator_SqlServer(IServiceCollection services, IConfiguration configuration)
+    private static void AddFluentMigrator_SqlServer(IServiceCollection services, IConfiguration configuration)
     {
         services.AddFluentMigratorCore()
             .ConfigureRunner(rb => rb
@@ -110,4 +113,11 @@ public static class DependencyInjectionExtension
 
     private static void AddLoggedUser(IServiceCollection services)
         => services.AddScoped<ILoggedUser, LoggedUser>();
+
+    private static void AddPasswordEncrypter(this IServiceCollection services, IConfiguration configuration)
+    {
+        var salt = configuration.GetValue<string>("Settings:Password:salt");
+        services.AddScoped<IPasswordEncripter>(options => new Sha512Encripter(salt!));
+    }
+
 }

@@ -5,6 +5,6 @@ namespace CommonTestUtilities.Repositories;
 
 public class UserWriteOnlyRepositoryBuilder
 {
-    public static IUserWriteOnlyRepository Build() 
+    public static IUserWriteOnlyRepository Build()
         => new Mock<IUserWriteOnlyRepository>().Object;
 }
