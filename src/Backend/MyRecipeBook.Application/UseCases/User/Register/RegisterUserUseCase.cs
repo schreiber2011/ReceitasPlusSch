@@ -1,15 +1,12 @@
 ﻿using AutoMapper;
-using Mapster;
-using MyRecipeBook.Application.Services.Criptography;
-using MyRecipeBook.Application.Services.Mappings;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
-using System.Threading.Tasks;
 
 namespace MyRecipeBook.Application.UseCases.User.Register;
 
@@ -19,7 +16,7 @@ public class RegisterUserUseCase(
     IUnitOfWork unitOfWork,
     IMapper autoMapper,
     IAccessTokenGenerator accessTokenGenerator,
-    PasswordEncripter passwordEncripter
+    IPasswordEncripter passwordEncripter
         ) : IRegisterUserUseCase
 {
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)

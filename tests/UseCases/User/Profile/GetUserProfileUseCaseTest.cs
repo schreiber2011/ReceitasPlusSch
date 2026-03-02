@@ -2,12 +2,11 @@
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Mapper;
 using FluentAssertions;
-using Mapster;
 using MyRecipeBook.Application.UseCases.User.Profile;
 
 namespace UseCases.User.Profile;
 
-public  class GetUserProfileUseCaseTest
+public class GetUserProfileUseCaseTest
 {
     [Fact]
     public async Task Success()

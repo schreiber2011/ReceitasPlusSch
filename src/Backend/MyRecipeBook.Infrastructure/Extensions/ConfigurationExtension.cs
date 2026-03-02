@@ -13,7 +13,7 @@ public static class ConfigurationExtension
         return inMemoryTestValue;
     }
 
-    public static  DatabaseType DatabaseType(this IConfiguration configuration)
+    public static DatabaseType DatabaseType(this IConfiguration configuration)
     {
         var databaseType = configuration.GetConnectionString("DatabaseType");
         if (string.IsNullOrWhiteSpace(databaseType))

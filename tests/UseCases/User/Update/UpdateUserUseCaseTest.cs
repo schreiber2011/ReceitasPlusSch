@@ -53,18 +53,18 @@ public class UpdateUserUseCaseTest
 
     [Fact]
     public async Task Execute_WhenEmailIsEmpty_ShouldThrowValidationException()
-    { 
+    {
         // Arrange
         (var user, _) = UserBuilder.Build();
-        
+
         var request = RequestUpdateUserJsonBuilder.Build();
         request.Email = string.Empty; // Set email to empty
-        
+
         var useCase = CreateUseCase(user);
-        
+
         // Act
         Func<Task> act = async () => await useCase.Execute(request);
-        
+
         // Assert
         await act.Should().ThrowAsync<ErrorOnValidationException>()
             .Where(e => e.ErrorMessages.Count == 1 &&
@@ -99,7 +99,7 @@ public class UpdateUserUseCaseTest
         var loggedUser = LoggedUserBuilder.Build(user);
 
         var userReadOnlyRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
-        if(!string.IsNullOrWhiteSpace(user.Email))
+        if (!string.IsNullOrWhiteSpace(user.Email))
             userReadOnlyRepositoryBuilder.ExistActiveUserWithEmail(email!);
 
         return new UpdateUserUseCase(

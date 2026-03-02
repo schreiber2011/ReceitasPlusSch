@@ -23,5 +23,5 @@ public class UserReadOnlyRepositoryBuilder
             .ReturnsAsync(user);
     }
 
-    public IUserReadOnlyRepository Build() =>_repository.Object;
+    public IUserReadOnlyRepository Build() => _repository.Object;
 }

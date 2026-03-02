@@ -8,5 +8,5 @@ public class UnitOfWork : IUnitOfWork
 
     public UnitOfWork(MyrecipeBookDbContext dbContext) => _dbContext = dbContext;
 
-   public async Task Commit() => await _dbContext.SaveChangesAsync();
+    public async Task Commit() => await _dbContext.SaveChangesAsync();
 }
