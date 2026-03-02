@@ -11,8 +11,11 @@ public class UpdateUserTest : MyRecipeBookClassFixture
 
     private readonly Guid _userIdentifier;
 
+
+#pragma warning disable IDE0290 // Use primary constructor (DO NOT CHANGE)
     public UpdateUserTest(CustomWebApplicationFactory factory) : base(factory)
         => _userIdentifier = factory.GetUserIdentifier();
+#pragma warning restore IDE0290 // Use primary constructor
 
     [Fact]
     public async Task PutUser_Success()
