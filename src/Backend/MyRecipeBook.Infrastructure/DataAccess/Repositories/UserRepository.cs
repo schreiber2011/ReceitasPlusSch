@@ -9,7 +9,7 @@ public class UserRepository(MyrecipeBookDbContext dbContext)
 {
     public async Task Add(User user) => await dbContext.Users.AddAsync(user);
 
-    public async Task<bool> ExistsActiveUserWithEmail(string email) 
+    public async Task<bool> ExistsActiveUserWithEmail(string email)
         => await dbContext.Users.AnyAsync(u => u.Email.Equals(email) && u.Active);
 
     public async Task<bool> ExistsActiveUserWithIdentifier(Guid userIdentifier)

@@ -15,7 +15,7 @@ public class LoginController : BasedController
         [FromBody] RequestLoginJson request)
     {
         var response = await useCase.Execute(request);
-        
+
         return Ok(response);
     }
 }

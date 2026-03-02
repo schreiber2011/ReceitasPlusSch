@@ -4,7 +4,6 @@ using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Exceptions;
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Json;
 using System.Text.Json;
 using WebApi.Test.InlineData;
 
@@ -36,9 +35,9 @@ public class DoLoginTest : MyRecipeBookClassFixture
 
 
         var response = await DoPost(method, request);
-        
+
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        
+
         await using var reponseBody = await response.Content.ReadAsStreamAsync();
 
         var responseData = await JsonDocument.ParseAsync(reponseBody);

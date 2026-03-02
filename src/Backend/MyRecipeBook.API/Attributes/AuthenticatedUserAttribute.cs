@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyRecipeBook.API.Filters;
-using MyRecipeBook.Domain.Repositories.User;
-using MyRecipeBook.Domain.Security.Tokens;
 
 namespace MyRecipeBook.API.Attributes;
 

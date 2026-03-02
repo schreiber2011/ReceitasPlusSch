@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using CommonTestUtilities.Tokens;
+﻿using CommonTestUtilities.Tokens;
 using FluentAssertions;
 using System.Net;
 using System.Text.Json;
@@ -32,7 +31,7 @@ public class GetUserProfileTest(CustomWebApplicationFactory factory) : MyRecipeB
 
     [Fact]
     public async Task GetUserProfile_WhenTokenInvalid_ShouldBeUnauthorized()
-        {
+    {
         var token = JwtTokenGeneratorBuilder.Build().Generate(Guid.NewGuid());
 
         var response = await DoGet(METHOD, token);

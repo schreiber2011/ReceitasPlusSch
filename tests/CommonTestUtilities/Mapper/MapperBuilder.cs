@@ -5,7 +5,7 @@ namespace CommonTestUtilities.Mapper;
 
 public class MapperBuilder
 {
-    public static IMapper Build() 
+    public static IMapper Build()
         => new AutoMapper.MapperConfiguration(option =>
             {
                 option.AddProfile(new AutoMapping());
