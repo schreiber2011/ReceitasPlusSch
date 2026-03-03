@@ -1,6 +1,6 @@
 ﻿namespace MyRecipeBook.Domain.Entities;
 
-public class EntiyBase
+public class EntityBase
 {
     public long Id { get; set; }
     public bool Active { get; set; } = true;

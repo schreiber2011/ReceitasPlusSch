@@ -3,7 +3,7 @@
 namespace MyRecipeBook.Domain.Entities;
 
 [Table("Users")]
-public class User : EntiyBase
+public class User : EntityBase
 {
     public string Name { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
