@@ -40,7 +40,7 @@ public class ChangePasswordUseCase(
         {
             result.Errors.Add(new FluentValidation.Results.ValidationFailure(
                 string.Empty,
-                ErrorMessages.PASSWORD_INVALID));
+                ResourceMessagesException.INVALID_PASSWORD));
         }
 
         if (!result.IsValid)

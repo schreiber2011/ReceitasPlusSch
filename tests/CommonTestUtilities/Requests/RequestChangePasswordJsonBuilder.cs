@@ -3,7 +3,7 @@ using MyRecipeBook.Communication.Requests;
 
 namespace CommonTestUtilities.Requests;
 
-public class RequestChangePasswordJsonBuilder
+public static class RequestChangePasswordJsonBuilder
 {
     public static RequestChangePasswordJson Build(int passwordLength = 10)
     {

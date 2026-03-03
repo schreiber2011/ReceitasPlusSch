@@ -3,7 +3,7 @@ using MyRecipeBook.Communication.Requests;
 
 namespace Validators.User.Update;
 
-public class RequestUpdateUserJsonBuilder
+public static class RequestUpdateUserJsonBuilder
 {
     public static RequestUpdateUserJson Build()
     {

@@ -30,7 +30,7 @@ public class RegisterUserUseCaseTest
             .Where(
             e => e.ErrorMessages.Count == 1
             &&
-            e.ErrorMessages.Contains(ErrorMessages.EMAIL_INVALID));
+            e.ErrorMessages.Contains(ResourceMessagesException.EMAIL_INVALID));
     }
 
     [Fact]
@@ -49,7 +49,7 @@ public class RegisterUserUseCaseTest
             .Where(
             e => e.ErrorMessages.Count == 1
             &&
-            e.ErrorMessages.Contains(ErrorMessages.EMAIL_EMPTY));
+            e.ErrorMessages.Contains(ResourceMessagesException.EMAIL_EMPTY));
     }
 
     [Fact]

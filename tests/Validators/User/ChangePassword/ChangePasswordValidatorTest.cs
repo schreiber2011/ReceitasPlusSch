@@ -36,9 +36,9 @@ public class ChangePasswordValidatorTest
         result.IsValid.Should().BeFalse();
         result.Errors.Should().HaveCount(2); // Only one error expected
         result.Errors.Should().Contain(
-            e => e.ErrorMessage.Equals(ErrorMessages.PASSWORD_EMPTY));
+            e => e.ErrorMessage.Equals(ResourceMessagesException.PASSWORD_EMPTY));
         result.Errors.Should().Contain(
-            e => e.ErrorMessage.Equals(ErrorMessages.PASSWORD_NOT6CHAR));
+            e => e.ErrorMessage.Equals(ResourceMessagesException.INVALID_PASSWORD));
     }
 
     [Theory]
@@ -60,6 +60,6 @@ public class ChangePasswordValidatorTest
         result.IsValid.Should().BeFalse();
         result.Errors.Should().HaveCount(1); // Only one error expected
         result.Errors.Should().Contain(
-            e => e.ErrorMessage.Equals(ErrorMessages.PASSWORD_NOT6CHAR));
+            e => e.ErrorMessage.Equals(ResourceMessagesException.INVALID_PASSWORD));
     }
 }

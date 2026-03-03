@@ -65,7 +65,8 @@ public class DoLoginTest : MyRecipeBookClassFixture
 
         var errors = responseData.RootElement.GetProperty("errors").EnumerateArray();
 
-        var expectedMessage = GetFormattedMessage("INVALIDS", "EMAIL", "PASSWORD", culture);
+        var expectedMessage = ResourceMessagesException.ResourceManager
+            .GetString("EMAIL_OR_PASSWORD_INVALID", new CultureInfo(culture));
 
         errors.Should().NotBeEmpty();
         errors.Should().ContainSingle()
@@ -73,15 +74,4 @@ public class DoLoginTest : MyRecipeBookClassFixture
             .Contain(e => e.GetString()!.Equals(expectedMessage));
 
     }
-
-    private static string GetFormattedMessage(string template, string variable0, string variable1, string culture)
-    {
-        var cultureInfo = new CultureInfo(culture);
-        var templateMessage = ResourceMessagesException.ResourceManager.GetString(template, cultureInfo)!;
-        var variableMessage0 = ResourceMessagesException.ResourceManager.GetString(variable0, cultureInfo)!;
-        var variableMessage1 = ResourceMessagesException.ResourceManager.GetString(variable1, cultureInfo)!;
-        return string.Format(templateMessage, variableMessage0, variableMessage1);
-    }
-
-
 }

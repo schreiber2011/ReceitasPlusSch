@@ -14,7 +14,7 @@ namespace MyRecipeBook.API.Token
             if (string.IsNullOrWhiteSpace(authentication)
             || !authentication.StartsWith("Bearer "))
             {
-                throw new MyRecipeBookException(ErrorMessages.NO_TOKEN);
+                throw new MyRecipeBookException(ResourceMessagesException.NO_TOKEN);
             }
             return authentication.Substring("Bearer ".Length).Trim();
 

@@ -26,7 +26,7 @@ public class AuthenticatedUserFiltere(
                 .ExistsActiveUserWithIdentifier(userIdentifier);
             if (!exist)
             {
-                throw new MyRecipeBookException(ErrorMessages.NO_TOKEN);
+                throw new MyRecipeBookException(ResourceMessagesException.NO_TOKEN);
             }
         }
         catch (SecurityTokenExpiredException)
@@ -45,7 +45,7 @@ public class AuthenticatedUserFiltere(
         catch
         {
             context.Result = new UnauthorizedObjectResult(
-                new ResponseErrorJson(ErrorMessages.TOKEN_MESSAGE_NOT_IMPLEMENTED));
+                new ResponseErrorJson(ResourceMessagesException.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE));
         }
     }
 
@@ -55,7 +55,7 @@ public class AuthenticatedUserFiltere(
         if (string.IsNullOrWhiteSpace(authentication)
             || !authentication.StartsWith("Bearer "))
         {
-            throw new MyRecipeBookException(ErrorMessages.NO_TOKEN);
+            throw new MyRecipeBookException(ResourceMessagesException.NO_TOKEN);
         }
         return authentication.Substring("Bearer ".Length).Trim();
     }
