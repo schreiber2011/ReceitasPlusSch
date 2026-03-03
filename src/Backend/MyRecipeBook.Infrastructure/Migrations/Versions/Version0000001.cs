@@ -2,7 +2,7 @@
 
 namespace MyRecipeBook.Infrastructure.Migrations.Versions;
 
-[Migration(1, "Initial migration to create Users table")]
+[Migration(DatabaseVersions.TABLE_USER, "Initial migration to create Users table")]
 public class Version0000001 : VersionBase
 {
     public override void Up()
