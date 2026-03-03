@@ -44,7 +44,7 @@ public class RegisterUserValidatorTest
         result.IsValid.Should().BeFalse();
         result.Errors.Should().ContainSingle(); // Only one error expected
         result.Errors.Should().Contain(
-            e => e.ErrorMessage.Equals(ErrorMessages.NAME_EMPTY));
+            e => e.ErrorMessage.Equals(ResourceMessagesException.NAME_EMPTY));
     }
 
     // Negative Test: Email empty
@@ -62,7 +62,7 @@ public class RegisterUserValidatorTest
         result.IsValid.Should().BeFalse();
         result.Errors.Should().ContainSingle(); // Only one error expected
         result.Errors.Should().Contain(
-            e => e.ErrorMessage.Equals(ErrorMessages.EMAIL_EMPTY));
+            e => e.ErrorMessage.Equals(ResourceMessagesException.EMAIL_EMPTY));
     }
 
     // Negative Test: Email invalid format
@@ -80,7 +80,7 @@ public class RegisterUserValidatorTest
         result.IsValid.Should().BeFalse();
         result.Errors.Should().ContainSingle(); // Only one error expected
         result.Errors.Should().Contain(
-            e => e.ErrorMessage.Equals(ErrorMessages.EMAIL_INVALID));
+            e => e.ErrorMessage.Equals(ResourceMessagesException.EMAIL_INVALID));
     }
 
     // Negative Test: Password empty
@@ -98,9 +98,9 @@ public class RegisterUserValidatorTest
         result.IsValid.Should().BeFalse();
         result.Errors.Should().HaveCount(2);
         result.Errors.Should().Contain(
-            e => e.ErrorMessage.Equals(ErrorMessages.PASSWORD_EMPTY));
+            e => e.ErrorMessage.Equals(ResourceMessagesException.PASSWORD_EMPTY));
         result.Errors.Should().Contain(
-            e => e.ErrorMessage.Equals(ErrorMessages.PASSWORD_NOT6CHAR));
+            e => e.ErrorMessage.Equals(ResourceMessagesException.INVALID_PASSWORD));
     }
 
     // Negative Test: Password too short
@@ -123,7 +123,7 @@ public class RegisterUserValidatorTest
         result.IsValid.Should().BeFalse();
         result.Errors.Should().ContainSingle(); // Only one error expected
         result.Errors.Should().Contain(
-            e => e.ErrorMessage.Equals(ErrorMessages.PASSWORD_NOT6CHAR));
+            e => e.ErrorMessage.Equals(ResourceMessagesException.INVALID_PASSWORD));
     }
 
 }

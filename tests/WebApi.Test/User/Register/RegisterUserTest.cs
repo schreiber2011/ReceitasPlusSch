@@ -50,7 +50,9 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : MyRecipeBoo
 
         var errors = responseData.RootElement.GetProperty("errors").EnumerateArray();
 
-        var expectedMessage = GetFormattedMessage("EMPTY", "NAME", culture);
+        var expectedMessage = ResourceMessagesException.ResourceManager
+            .GetString("NAME_EMPTY", new CultureInfo(culture));
+
 
         errors.Should().NotBeEmpty();
         errors.Should().ContainSingle()
@@ -58,13 +60,4 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : MyRecipeBoo
             .Contain(e => e.GetString()!.Equals(expectedMessage));
 
     }
-
-    private static string GetFormattedMessage(string template, string variable, string culture)
-    {
-        var cultureInfo = new CultureInfo(culture);
-        var templateMessage = ResourceMessagesException.ResourceManager.GetString(template, cultureInfo)!;
-        var variableMessage = ResourceMessagesException.ResourceManager.GetString(variable, cultureInfo)!;
-        return string.Format(templateMessage, variableMessage);
-    }
-
 }

@@ -11,15 +11,15 @@ public class RegisterUserValidator : AbstractValidator<RequestRegisterUserJson>
     {
         RuleFor(user => user.Name)
             .NotEmpty()
-            .WithMessage(ErrorMessages.NAME_EMPTY);
+            .WithMessage(ResourceMessagesException.NAME_EMPTY);
         RuleFor(user => user.Email)
             .NotEmpty()
-            .WithMessage(ErrorMessages.EMAIL_EMPTY);
+            .WithMessage(ResourceMessagesException.EMAIL_EMPTY);
         When(user => !string.IsNullOrWhiteSpace(user.Email), () =>
         {
             RuleFor(user => user.Email)
                 .EmailAddress()
-                .WithMessage(ErrorMessages.EMAIL_INVALID);
+                .WithMessage(ResourceMessagesException.EMAIL_INVALID);
         });
         RuleFor(user => user.Password).SetValidator(new PasswordValidator<RequestRegisterUserJson>());
     }
