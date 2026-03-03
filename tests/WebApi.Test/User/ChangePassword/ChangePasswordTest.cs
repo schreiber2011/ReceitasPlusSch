@@ -84,7 +84,7 @@ public class ChangePasswordTest : MyRecipeBookClassFixture
 
         var errors = responseData.RootElement.GetProperty("errors").EnumerateArray();
 
-        var expectedMessage = ErrorMessages.PASSWORD_EMPTY;
+        var expectedMessage = ResourceMessagesException.PASSWORD_EMPTY;
 
         errors.Should().ContainSingle(e => e.GetString() == expectedMessage);
     }

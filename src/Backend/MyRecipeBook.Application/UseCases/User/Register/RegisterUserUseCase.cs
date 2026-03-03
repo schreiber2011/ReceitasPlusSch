@@ -52,7 +52,7 @@ public class RegisterUserUseCase(
         {
             result.Errors.Add(new FluentValidation.Results.ValidationFailure(
                 nameof(request.Email),
-                ErrorMessages.EMAIL_INVALID));
+                ResourceMessagesException.EMAIL_INVALID));
         }
 
         if (!result.IsValid)

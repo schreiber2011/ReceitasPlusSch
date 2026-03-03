@@ -48,7 +48,7 @@ public class UpdateUserUseCaseTest
         // Assert
         await act.Should().ThrowAsync<ErrorOnValidationException>()
             .Where(e => e.ErrorMessages.Count == 1 &&
-            e.ErrorMessages.Contains(ErrorMessages.NAME_EMPTY));
+            e.ErrorMessages.Contains(ResourceMessagesException.NAME_EMPTY));
     }
 
     [Fact]
@@ -68,7 +68,7 @@ public class UpdateUserUseCaseTest
         // Assert
         await act.Should().ThrowAsync<ErrorOnValidationException>()
             .Where(e => e.ErrorMessages.Count == 1 &&
-            e.ErrorMessages.Contains(ErrorMessages.EMAIL_EMPTY));
+            e.ErrorMessages.Contains(ResourceMessagesException.EMAIL_EMPTY));
     }
 
     [Fact]
@@ -87,7 +87,7 @@ public class UpdateUserUseCaseTest
         // Assert
         await act.Should().ThrowAsync<ErrorOnValidationException>()
             .Where(e => e.ErrorMessages.Count == 1 &&
-            e.ErrorMessages.Contains(ErrorMessages.EMAIL_INVALID));
+            e.ErrorMessages.Contains(ResourceMessagesException.EMAIL_INVALID));
     }
 
     private static UpdateUserUseCase CreateUseCase(

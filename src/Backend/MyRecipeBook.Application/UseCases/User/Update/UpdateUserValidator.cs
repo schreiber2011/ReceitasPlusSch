@@ -10,15 +10,15 @@ public class UpdateUserValidator : AbstractValidator<RequestUpdateUserJson>
     {
         RuleFor(x => x.Name)
             .NotEmpty()
-            .WithMessage(ErrorMessages.NAME_EMPTY);
+            .WithMessage(ResourceMessagesException.NAME_EMPTY);
         RuleFor(x => x.Email)
             .NotEmpty()
-            .WithMessage(ErrorMessages.EMAIL_EMPTY);
+            .WithMessage(ResourceMessagesException.EMAIL_EMPTY);
         When(user => !string.IsNullOrWhiteSpace(user.Email), () =>
         {
             RuleFor(user => user.Email)
                 .EmailAddress()
-                .WithMessage(ErrorMessages.EMAIL_INVALID);
+                .WithMessage(ResourceMessagesException.EMAIL_INVALID);
         });
 
     }

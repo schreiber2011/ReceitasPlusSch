@@ -52,8 +52,8 @@ public class ChangePasswordUseCaseTest
         // Assert
         (await act.Should().ThrowAsync<ErrorOnValidationException>())
             .Where(e => e.ErrorMessages.Count == 2 &&
-            e.ErrorMessages.Contains(ErrorMessages.PASSWORD_EMPTY) &&
-            e.ErrorMessages.Contains(ErrorMessages.PASSWORD_NOT6CHAR)
+            e.ErrorMessages.Contains(ResourceMessagesException.PASSWORD_EMPTY) &&
+            e.ErrorMessages.Contains(ResourceMessagesException.INVALID_PASSWORD)
             );
     }
 
@@ -71,7 +71,7 @@ public class ChangePasswordUseCaseTest
         // Assert
         (await act.Should().ThrowAsync<ErrorOnValidationException>())
             .Where(e => e.ErrorMessages.Count == 1 &&
-            e.ErrorMessages.Contains(ErrorMessages.PASSWORD_INVALID)
+            e.ErrorMessages.Contains(ResourceMessagesException.INVALID_PASSWORD)
             );
     }
 
