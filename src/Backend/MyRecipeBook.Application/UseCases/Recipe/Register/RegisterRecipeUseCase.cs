@@ -14,7 +14,7 @@ public class RegisterRecipeUseCase(
     IUnitOfWork unitOfWork,
     IMapper mapper) : IRegisterRecipeUseCase
 {
-    public async Task<ResponseRegiteredRecipeJson> Execute(RequestRecipeJson request)
+    public async Task<ResponseRegisteredRecipeJson> Execute(RequestRecipeJson request)
     {
         Validate(request);
 
@@ -33,7 +33,7 @@ public class RegisterRecipeUseCase(
 
         await unitOfWork.Commit();
 
-        return mapper.Map<ResponseRegiteredRecipeJson>(recipe);
+        return mapper.Map<ResponseRegisteredRecipeJson>(recipe);
     }
 
     private static void Validate(RequestRecipeJson request)

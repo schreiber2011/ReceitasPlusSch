@@ -29,8 +29,8 @@ public class Version0000002 : VersionBase
                 "FK_Instruction_Recipe_Id", RecipesTableName, "Id")
             .OnDelete(System.Data.Rule.Cascade);
 
-        CreateTable("DishType")
-            .WithColumn("Type").AsString(255).NotNullable()
+        CreateTable("DishTypes")
+            .WithColumn("Type").AsInt32().NotNullable()
             .WithColumn("RecipeId").AsInt64().NotNullable().ForeignKey(
                 "FK_DishType_Recipe_Id", RecipesTableName, "Id")
             .OnDelete(System.Data.Rule.Cascade);

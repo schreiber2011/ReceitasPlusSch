@@ -7,6 +7,7 @@ using MyRecipeBook.Application.UseCases.User.ChangePassword;
 using MyRecipeBook.Application.UseCases.User.Profile;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Application.UseCases.User.Update;
+using Sqids;
 
 namespace MyRecipeBook.Application;
 
@@ -14,15 +15,22 @@ public static class DependencyInjectionExtension
 {
     public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
-        AddAutoMapper(services);
+        AddAutoMapper(services, configuration);
         AddUseCases(services);
     }
 
-    private static void AddAutoMapper(this IServiceCollection services)
+    private static void AddAutoMapper(this IServiceCollection services, IConfiguration configuration)
     {
+        var sqids = new SqidsEncoder<long>(new()
+        {
+            MinLength = 3,
+            Alphabet = configuration.GetValue<string>("Settings:IdCryptographyAlphabet",
+                                                      "wLMpRcuirFdx0bD8JhVAe5kz1KtjZTmyOnaHq6UlBvsIEo42fXS3QYgNC79WPG")!
+        });
+
         services.AddScoped(option => new AutoMapper.MapperConfiguration(option =>
         {
-            option.AddProfile(new AutoMapping());
+            option.AddProfile(new AutoMapping(sqids));
         }).CreateMapper());
     }
 
