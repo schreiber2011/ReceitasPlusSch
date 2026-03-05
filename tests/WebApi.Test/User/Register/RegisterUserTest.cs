@@ -40,7 +40,7 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : MyRecipeBoo
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Name = string.Empty; // Make invalid
 
-        var response = await DoPost(method, request, culture);
+        var response = await DoPost(method: method, request: request, culture: culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
