@@ -1,7 +1,7 @@
 ﻿using CommonTestUtilities.Tokens;
 using FluentAssertions;
 using System.Net;
-using Validators.User.Update;
+using Validators.Test.User.Update;
 
 namespace WebApi.Test.User.Update;
 

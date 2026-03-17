@@ -3,7 +3,7 @@ using FluentAssertions;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Exceptions;
 
-namespace Validators.User.Register;
+namespace Validators.Test.User.Register;
 
 public class RegisterUserValidatorTest
 {

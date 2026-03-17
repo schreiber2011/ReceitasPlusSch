@@ -5,7 +5,7 @@ using MyRecipeBook.Communication.Enums;
 using MyRecipeBook.Exceptions;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Validators.Recipe;
+namespace Validators.Test.Recipe;
 
 public class RecipeValidatorTest
 {

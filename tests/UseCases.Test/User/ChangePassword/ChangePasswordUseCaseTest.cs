@@ -9,7 +9,7 @@ using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 
-namespace UseCases.User.ChangePassword;
+namespace UseCases.Test.User.ChangePassword;
 
 public class ChangePasswordUseCaseTest
 {
