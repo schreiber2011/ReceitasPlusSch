@@ -1,15 +1,18 @@
 ﻿using CommonTestUtilities.Entities;
+using CommonTestUtilities.IdEncryption;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MyRecipeBook.Domain.Enums;
 using MyRecipeBook.Infrastructure.DataAccess;
 
 namespace WebApi.Test;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
-    private MyRecipeBook.Domain.Entities.User? _user;
+    private MyRecipeBook.Domain.Entities.Recipe _recipe = default!;
+    private MyRecipeBook.Domain.Entities.User _user = default!;
     private string _password = string.Empty;
 
     public string GetEmail() => _user?.Email ?? throw new InvalidOperationException("User not initialized");
@@ -19,6 +22,12 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetName() => _user?.Name ?? throw new InvalidOperationException("User not initialized");
 
     public Guid GetUserIdentifier() => _user?.UserIdentifier ?? throw new InvalidOperationException("User not initialized");
+
+    public string GetRecipeId() => IdEncripterBuilder.Build().Encode(_recipe.Id);
+    public string GetRecipeTitle() => _recipe.Title;
+    public Difficulty GetRecipeDifficulty() => _recipe.Difficulty!.Value;
+    public CookingTime GetRecipeCookingTime() => _recipe.CookingTime!.Value;
+    public IList<DishType> GetDishTypes() => [.. _recipe.DishTypes.Select(c => c.Type)];
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -53,7 +62,11 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
         (_user, _password) = UserBuilder.Build();
 
+        _recipe = RecipeBuilder.Build(_user);
+
         dbContext.Users.Add(_user);
+
+        dbContext.Recipes.Add(_recipe);
 
         dbContext.SaveChanges();
     }
