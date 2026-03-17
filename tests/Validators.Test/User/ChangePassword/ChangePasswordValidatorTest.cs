@@ -3,7 +3,7 @@ using FluentAssertions;
 using MyRecipeBook.Application.UseCases.User.ChangePassword;
 using MyRecipeBook.Exceptions;
 
-namespace Validators.User.ChangePassword;
+namespace Validators.Test.User.ChangePassword;
 
 public class ChangePasswordValidatorTest
 {

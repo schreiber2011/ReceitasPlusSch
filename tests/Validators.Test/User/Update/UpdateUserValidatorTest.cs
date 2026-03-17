@@ -2,7 +2,7 @@
 using MyRecipeBook.Application.UseCases.User.Update;
 using MyRecipeBook.Exceptions;
 
-namespace Validators.User.Update;
+namespace Validators.Test.User.Update;
 
 public class UpdateUserValidatorTest
 {

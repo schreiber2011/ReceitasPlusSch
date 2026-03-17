@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using MyRecipeBook.Communication.Requests;
 
-namespace Validators.User.Update;
+namespace Validators.Test.User.Update;
 
 public static class RequestUpdateUserJsonBuilder
 {

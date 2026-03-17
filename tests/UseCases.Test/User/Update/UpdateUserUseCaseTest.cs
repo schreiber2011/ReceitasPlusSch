@@ -5,9 +5,9 @@ using FluentAssertions;
 using MyRecipeBook.Application.UseCases.User.Update;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
-using Validators.User.Update;
+using Validators.Test.User.Update;
 
-namespace UseCases.User.Update;
+namespace UseCases.Test.User.Update;
 
 public class UpdateUserUseCaseTest
 {
