@@ -30,10 +30,10 @@
     <Project Path="tests/CommonTestUtilities/CommonTestUtilities.csproj" Id="cb1984a5-61f6-4cbc-bd92-d7a075617770">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
-    <Project Path="tests/UseCases/UseCases.Test.csproj" Id="1be6fa87-8f09-49d8-9603-bf53b2068bc3">
+    <Project Path="tests/UseCases.Test/UseCases.Test.csproj" Id="1be6fa87-8f09-49d8-9603-bf53b2068bc3">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
-    <Project Path="tests/Validators/Validators.Test.csproj" Id="ee389a0c-08df-45d0-8c08-7e7fc332b154">
+    <Project Path="tests/Validators.Test/Validators.Test.csproj" Id="ee389a0c-08df-45d0-8c08-7e7fc332b154">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
     <Project Path="tests/WebApi.Test/WebApi.Test.csproj" Id="a146ded4-7e35-48cf-9042-67b109e4069d">
