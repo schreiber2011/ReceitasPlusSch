@@ -1,6 +1,198 @@
-@MyRecipeBook.API_HostAddress = http://localhost:5170
+# @no-cert-check
+@MyRecipeBookAPI_HostAddress = https://localhost:7000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIzZWM3NmFkZC05MzZiLTQ3MmMtYWRjZi03YjM5Y2I1OWM5ODEiLCJuYmYiOjE3NzMxMjA4NTEsImV4cCI6MTc3MzE4MDg1MSwiaWF0IjoxNzczMTIwODUxfQ.Q2RsBmQSscNddCMa5LTpwmza4rPWouMDZdx9r0A3wqo
 
-GET {{MyRecipeBook.API_HostAddress}}/weatherforecast/
+
+###
+GET {{MyRecipeBookAPI_HostAddress}}/swagger
+
+
+
+### =========================================================
+### Filtro 1 - Filtro vazio (retorna todas as receitas)
+### Esperado: Panqueca Americana, Spaghetti à Carbonara, Bolo de Cenoura
+### =========================================================
+POST {{MyRecipeBookAPI_HostAddress}}/recipe/filter
+Content-Type: application/json
 Accept: application/json
+Accept-Language: pt-BR
+Authorization: Bearer {{token}}
+
+{
+}
+
+### =========================================================
+### Filtro 2 - Buscar por título
+### Esperado: Panqueca Americana
+### =========================================================
+POST {{MyRecipeBookAPI_HostAddress}}/recipe/filter
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pt-BR
+Authorization: Bearer {{token}}
+
+{
+  "recipeTitle_Ingredient": "Panqueca"
+}
+
+### =========================================================
+### Filtro 3 - Buscar por ingrediente
+### Esperado: Bolo de Cenoura
+### =========================================================
+POST {{MyRecipeBookAPI_HostAddress}}/recipe/filter
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pt-BR
+Authorization: Bearer {{token}}
+
+{
+  "recipeTitle_Ingredient": "cenoura"
+}
+
+### =========================================================
+### Filtro 4 - Filtrar por tempo de preparo
+### Esperado: Panqueca Americana
+### =========================================================
+POST {{MyRecipeBookAPI_HostAddress}}/recipe/filter
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pt-BR
+Authorization: Bearer {{token}}
+
+{
+  "cookingTimes": [1]
+}
+
+### =========================================================
+### Filtro 5 - Filtrar por múltiplos tempos
+### Esperado: Panqueca Americana, Spaghetti à Carbonara
+### =========================================================
+POST {{MyRecipeBookAPI_HostAddress}}/recipe/filter
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pt-BR
+Authorization: Bearer {{token}}
+
+{
+  "cookingTimes": [1,2]
+}
+
+### =========================================================
+### Filtro 6 - Filtrar por dificuldade fácil
+### Esperado: Panqueca Americana
+### =========================================================
+POST {{MyRecipeBookAPI_HostAddress}}/recipe/filter
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pt-BR
+Authorization: Bearer {{token}}
+
+{
+  "difficulties": [0]
+}
+
+### =========================================================
+### Filtro 7 - Filtrar por dificuldade média
+### Esperado: Spaghetti à Carbonara, Bolo de Cenoura
+### =========================================================
+POST {{MyRecipeBookAPI_HostAddress}}/recipe/filter
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pt-BR
+Authorization: Bearer {{token}}
+
+{
+  "difficulties": [1]
+}
+
+### =========================================================
+### Filtro 8 - Filtrar por tipo de prato
+### Esperado: Spaghetti à Carbonara
+### =========================================================
+POST {{MyRecipeBookAPI_HostAddress}}/recipe/filter
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pt-BR
+Authorization: Bearer {{token}}
+
+{
+  "dishTypes": [1]
+}
+
+### =========================================================
+### Filtro 9 - Filtrar por múltiplos tipos de prato
+### Esperado: Bolo de Cenoura
+### =========================================================
+POST {{MyRecipeBookAPI_HostAddress}}/recipe/filter
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pt-BR
+Authorization: Bearer {{token}}
+
+{
+  "dishTypes": [4,5]
+}
+
+### =========================================================
+### Filtro 10 - Filtro combinado (tempo + dificuldade)
+### Esperado: Spaghetti à Carbonara
+### =========================================================
+POST {{MyRecipeBookAPI_HostAddress}}/recipe/filter
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pt-BR
+Authorization: Bearer {{token}}
+
+{
+  "cookingTimes": [2],
+  "difficulties": [1]
+}
+
+### =========================================================
+### Filtro 11 - Filtro combinado com texto
+### Esperado: Bolo de Cenoura com Cobertura de Chocolate
+### =========================================================
+POST {{MyRecipeBookAPI_HostAddress}}/recipe/filter
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pt-BR
+Authorization: Bearer {{token}}
+
+{
+  "recipeTitle_Ingredient": "chocolate",
+  "cookingTimes": [3],
+  "difficulties": [1],
+  "dishTypes": [4]
+}
+
+### =========================================================
+### Filtro 12 - Busca que não retorna resultados
+### Esperado: lista vazia
+### =========================================================
+POST {{MyRecipeBookAPI_HostAddress}}/recipe/filter
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pt-BR
+Authorization: Bearer {{token}}
+
+{
+  "recipeTitle_Ingredient": "frango"
+}
+
+### =========================================================
+### Filtro 13 - Combinação impossível
+### Esperado: lista vazia
+### =========================================================
+POST {{MyRecipeBookAPI_HostAddress}}/recipe/filter
+Content-Type: application/json
+Accept: application/json
+Accept-Language: pt-BR
+Authorization: Bearer {{token}}
+
+{
+  "cookingTimes": [0],
+  "difficulties": [2],
+  "dishTypes": [6]
+}
 
 ###

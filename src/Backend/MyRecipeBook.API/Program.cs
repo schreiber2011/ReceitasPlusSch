@@ -1,11 +1,78 @@
+using Microsoft.OpenApi.Models;
+using MyRecipeBook.API.Filters;
+using MyRecipeBook.API.Middleware;
+using MyRecipeBook.API.Token;
+using MyRecipeBook.Application;
+using MyRecipeBook.Domain.Security.Tokens;
+using MyRecipeBook.Infrastructure;
+using MyRecipeBook.Infrastructure.Extensions;
+using MyRecipeBook.Infrastructure.Migrations;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+//AddJsonOptions
+//    options JsonSerializerOptions Converters Add new StringConverter
+// This AddJsonOptions above in comments is necessary so the space removal for name works,
+// but it is breaking the register custom error responses
+//WebApi.Test.User.Register.RegisterUserTest.PostUser_WhenNameIsEmpty_ShouldBeBadRequestWithNameEmptyError(culture: "en")
+//  Source: RegisterUserTest.cs line 35
+//  Duration: 549 ms
+//  Message: 
+//System.InvalidOperationException : The requested operation requires an element of type 'Array', but the target element has type 'Object'.
+// The problem is that the custom exception aren't being used, instead the controller do automatic
+// checks and return the default error response, which is different from the custom one, and the test is expecting the custom one, so it is breaking the test. 
+// The issues happen only with RegisterUse but not with the New DoLogin controller
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+string BearerScheme() => "Bearer";
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition(BearerScheme(), new OpenApiSecurityScheme
+    {
+        Description = @"JWT Authorization header using the Bearer scheme.
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      Example: 'Bearer 12345abcdef'",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = BearerScheme()
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = BearerScheme()
+                },
+                Scheme = "oauth2",
+                Name = BearerScheme(),
+                In = ParameterLocation.Header,
+            },
+            new List<string>()
+        }
+    });
+});
+
+builder.Services.AddMvc(options =>
+{
+    options.Filters.Add(typeof(ExceptionFilter));
+});
+
+builder.Services.AddApplication(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
+
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -16,10 +83,31 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<CultureMiddleware>();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+MigrateDatabase();
+
+await app.RunAsync();
+
+void MigrateDatabase()
+{
+    if (app.Environment.IsEnvironment("Test"))
+        return;
+    var databaseType = builder.Configuration.DatabaseType();
+    var connectionString = builder.Configuration.ConnectionString();
+
+    var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+    DatabaseMigration.Migrate(databaseType, connectionString, serviceScope.ServiceProvider);
+}
+
+public partial class Program
+{
+    protected Program() { }
+}

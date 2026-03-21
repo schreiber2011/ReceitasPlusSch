@@ -1,14 +1,43 @@
 <Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
   <Folder Name="/src/" />
   <Folder Name="/src/Backend/">
-    <Project Path="src/Backend/MyRecipeBook.API/MyRecipeBook.API.csproj" Id="a762fe59-f276-4429-b045-c3c182b39799" />
-    <Project Path="src/Backend/MyRecipeBook.Application/MyRecipeBook.Application.csproj" Id="6ddddb5b-2888-483e-9e4e-74fd17507276" />
-    <Project Path="src/Backend/MyRecipeBook.Domain/MyRecipeBook.Domain.csproj" Id="084dc215-beb5-4d8f-8ca2-23edee85d42c" />
-    <Project Path="src/Backend/MyRecipeBook.Infrastructure/MyRecipeBook.Infrastructure.csproj" Id="92c3fb43-b048-400c-bcf9-684f5736ab57" />
+    <Project Path="src/Backend/MyRecipeBook.API/MyRecipeBook.API.csproj" Id="a762fe59-f276-4429-b045-c3c182b39799">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+    <Project Path="src/Backend/MyRecipeBook.Application/MyRecipeBook.Application.csproj" Id="6ddddb5b-2888-483e-9e4e-74fd17507276">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+    <Project Path="src/Backend/MyRecipeBook.Domain/MyRecipeBook.Domain.csproj" Id="084dc215-beb5-4d8f-8ca2-23edee85d42c">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+    <Project Path="src/Backend/MyRecipeBook.Infrastructure/MyRecipeBook.Infrastructure.csproj" Id="92c3fb43-b048-400c-bcf9-684f5736ab57">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
   </Folder>
   <Folder Name="/src/shared/">
-    <Project Path="src/Shared/MyRecipeBook.Communication/MyRecipeBook.Communication.csproj" Id="14affaf3-50c4-4245-9f1a-5c6c087bd718" />
-    <Project Path="src/Shared/MyRecipeBook.Exceptions/MyRecipeBook.Exceptions.csproj" Id="d16c0274-4eb3-47be-a255-4c1c56f398da" />
+    <Project Path="src/Shared/MyRecipeBook.Communication/MyRecipeBook.Communication.csproj" Id="14affaf3-50c4-4245-9f1a-5c6c087bd718">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+    <Project Path="src/Shared/MyRecipeBook.Exceptions/MyRecipeBook.Exceptions.csproj" Id="d16c0274-4eb3-47be-a255-4c1c56f398da">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
   </Folder>
-  <Folder Name="/tests/" />
+  <Folder Name="/tests/">
+    <Project Path="tests/CommonTestUtilities/CommonTestUtilities.csproj" Id="cb1984a5-61f6-4cbc-bd92-d7a075617770">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+    <Project Path="tests/UseCases.Test/UseCases.Test.csproj" Id="1be6fa87-8f09-49d8-9603-bf53b2068bc3">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+    <Project Path="tests/Validators.Test/Validators.Test.csproj" Id="ee389a0c-08df-45d0-8c08-7e7fc332b154">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+    <Project Path="tests/WebApi.Test/WebApi.Test.csproj" Id="a146ded4-7e35-48cf-9042-67b109e4069d">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+  </Folder>
 </Solution>
